@@ -735,7 +735,7 @@ int poptBitsAdd(poptBits bits, const char * s)
     poptJlu32lpair(s, ns, &h0, &h1);
 
     for (ns = 0; ns < (size_t)_poptBitsK; ns++) {
-        uint32_t h = h0 + ns * h1;
+        size_t h = h0 + ns * h1;
         uint32_t ix = (h % _poptBitsM);
         PBM_SET(ix, bits);
     }
@@ -755,7 +755,7 @@ int poptBitsChk(poptBits bits, const char * s)
     poptJlu32lpair(s, ns, &h0, &h1);
 
     for (ns = 0; ns < (size_t)_poptBitsK; ns++) {
-        uint32_t h = h0 + ns * h1;
+        size_t h = h0 + ns * h1;
         uint32_t ix = (h % _poptBitsM);
         if (PBM_ISSET(ix, bits))
             continue;
@@ -788,7 +788,7 @@ int poptBitsDel(poptBits bits, const char * s)
     poptJlu32lpair(s, ns, &h0, &h1);
 
     for (ns = 0; ns < (size_t)_poptBitsK; ns++) {
-        uint32_t h = h0 + ns * h1;
+        size_t h = h0 + ns * h1;
         uint32_t ix = (h % _poptBitsM);
         PBM_CLR(ix, bits);
     }
@@ -1111,7 +1111,7 @@ static int poptSaveArg(poptContext con, const struct poptOption * opt)
 	break;
     case POPT_ARG_STRING:
 	/* XXX memory leak, application is responsible for free. */
-	arg.argv[0] = (con->os->nextArg) ? xstrdup(con->os->nextArg) : NULL;
+	arg.argv[0] = (con->os->nextArg) ? free((void *)arg.argv[0]), xstrdup(con->os->nextArg) : NULL;
 	break;
 
     case POPT_ARG_INT:
