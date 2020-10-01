@@ -62,6 +62,7 @@ AM_CFLAGS="\
  -Wextra\
  -Wmissing-format-attribute\
  -Wmissing-noreturn\
+ -Wmissing-prototypes\
  -Wno-gnu-alignof-expression\
  -Wpointer-arith\
  -Wshadow\
